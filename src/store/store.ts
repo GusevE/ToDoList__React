@@ -1,16 +1,17 @@
 import { Todo, Store } from './types';
 import { createStore } from 'redux';
-import { ActionTypes, DELETE_TODO, SET_TODOS, ADD_TODO, SET_NEWTODO, TOGGLE_TODO, EDIT_TODO} from './actions';
+import { ActionTypes, DELETE_TODO, SET_TODOS, ADD_TODO, SET_NEWTODO, TOGGLE_TODO, EDIT_TODO, DISABLED_TODO } from './actions';
 
 let id = 0
 
-const addTodo = (todos: Todo[], text: string): Todo[]=> [...todos, {id: ++id,text, done: false}];
+const addTodo = (todos: Todo[], text: string): Todo[]=> [...todos, {id: ++id,text, done: false, disabled: true}];
 
 const removeTodo = (todos: Todo[], id: number): Todo[] => todos.filter((todo) => todo.id !== id);
 
-const toggleTodo = (todos: Todo[], id: number): Todo[] => todos.map((todo) => ({...todo,done: todo.id === id ? !todo.done : todo.done}));
+const toggleTodo = (todos: Todo[], id: number): Todo[] => todos.map((todo) => ({...todo, done: todo.id === id ? !todo.done : todo.done}));
 
 const editTodo = (todo: Todo[], id: number, text: string): Todo[] => todo.map((todo) => ({ ...todo, text: todo.id === id ? text : todo.text}) )
+const editDisabled = (todo: Todo[], id: number, disabled: boolean): Todo[]=> todo.map((todo)=> ({...todo, disabled: todo.id === id ? !todo.disabled : todo.disabled}))
 
 function todoReducer(state: Store = { todos: [], newTodo: ""}, action: ActionTypes)
   {
@@ -20,6 +21,7 @@ function todoReducer(state: Store = { todos: [], newTodo: ""}, action: ActionTyp
         case ADD_TODO: return { ...state, newTodo: "", todos: addTodo(state.todos, state.newTodo),};
         case TOGGLE_TODO: return { ...state, todos: toggleTodo(state.todos, action.payload),};
         case EDIT_TODO: return { ...state, todos: editTodo(state.todos, action.payload.id, action.payload.text) }
+        case DISABLED_TODO: return { ...state, todos: editDisabled(state.todos, action.payload.id, action.payload.disabled) }
         default:
       return state;
     }
