@@ -21,8 +21,9 @@ export const ListAdd: React.FC = () => {
         <Button
           style={{ marginLeft: "20px" }}
           variant="contained"
-          onClick={() => dispatch(addTodo())}
-          size="large"
+          onClick={() =>
+            newTodo ? dispatch(addTodo()) : alert("введите значени")
+          }
         >
           Создать задачу
         </Button>

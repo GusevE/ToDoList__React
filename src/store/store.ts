@@ -10,7 +10,7 @@ const removeTodo = (todos: Todo[], id: number): Todo[] => todos.filter((todo) =>
 
 const toggleTodo = (todos: Todo[], id: number): Todo[] => todos.map((todo) => ({...todo, done: todo.id === id ? !todo.done : todo.done}));
 
-const editTodo = (todo: Todo[], id: number, text: string): Todo[] => todo.map((todo) => ({ ...todo, text: todo.id === id ? text : todo.text}) )
+const editTodo = (todo: Todo[], id: number, text: string): Todo[] => todo.map((todo) =>  ({ ...todo, text: todo.id === id  ?  text : todo.text}) )
 const editDisabled = (todo: Todo[], id: number, disabled: boolean): Todo[]=> todo.map((todo)=> ({...todo, disabled: todo.id === id ? !todo.disabled : todo.disabled}))
 
 function todoReducer(state: Store = { todos: [], newTodo: ""}, action: ActionTypes)

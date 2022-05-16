@@ -11,6 +11,7 @@ import {
 import { Store } from "../../store/types";
 import styles from "../ListToDo/ListToDo.module.css";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 
 function ListToDo() {
   const todos = useSelector((state: Store) => state.todos);
@@ -22,7 +23,10 @@ function ListToDo() {
       {todos.map((todo: { id: number; text: string; disabled: boolean }) => (
         <div key={todo.id} className={styles.block}>
           <IconButton>
-            <Checkbox onClick={() => dispatch(toggleTodo(todo.id))} />
+            <Checkbox
+              disabled={!todo.disabled}
+              onClick={() => dispatch(toggleTodo(todo.id))}
+            />
           </IconButton>
           <TextField
             disabled={todo.disabled}
@@ -34,11 +38,21 @@ function ListToDo() {
               endAdornment: (
                 <>
                   <IconButton>
-                    <ModeEditIcon
-                      onClick={() =>
-                        dispatch(editDisabled(todo.id, todo.disabled))
-                      }
-                    />
+                    {todo.disabled ? (
+                      <ModeEditIcon
+                        onClick={() =>
+                          dispatch(editDisabled(todo.id, todo.disabled))
+                        }
+                      />
+                    ) : (
+                      <DoneAllIcon
+                        onClick={() =>
+                          todo.text !== ""
+                            ? dispatch(editDisabled(todo.id, todo.disabled))
+                            : alert("Поле не должно быть пустым")
+                        }
+                      />
+                    )}
                   </IconButton>
                   <>
                     <IconButton
