@@ -12,6 +12,7 @@ import { Store } from "../../store/types";
 import styles from "../ListToDo/ListToDo.module.css";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { ButtonComponent } from "../Button/ButtonComponent";
 
 function ListToDo() {
   const todos = useSelector((state: Store) => state.todos);
@@ -68,6 +69,7 @@ function ListToDo() {
           />
         </div>
       ))}
+      {todos.length ? <ButtonComponent /> : <></>}
     </>
   );
 }

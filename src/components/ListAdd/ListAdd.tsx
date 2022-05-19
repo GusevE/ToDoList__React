@@ -6,6 +6,7 @@ import styles from "../ListAdd/ListAdd.module.css";
 
 export const ListAdd: React.FC = () => {
   const newTodo = useSelector((state: Store) => state.newTodo);
+  const task = useSelector((state: Store) => state.todos);
   const dispatch = useDispatch();
   return (
     <div>
@@ -28,6 +29,16 @@ export const ListAdd: React.FC = () => {
           Создать задачу
         </Button>
       </div>
+      {task.length ?
+      (
+      <h4>Колличество: {task.length}</h4>
+      )
+        :
+        <>
+        
+        </>
+      }
+      
     </div>
   );
 };
