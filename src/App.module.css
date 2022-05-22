@@ -45,3 +45,6 @@
 .block:hover:after {
     animation-play-state: paused;
 }
+.nav{
+    padding-top: 30px;
+}

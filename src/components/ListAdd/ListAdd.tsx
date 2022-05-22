@@ -29,16 +29,7 @@ export const ListAdd: React.FC = () => {
           Создать задачу
         </Button>
       </div>
-      {task.length ?
-      (
-      <h4>Колличество: {task.length}</h4>
-      )
-        :
-        <>
-        
-        </>
-      }
-      
+      {task.length ? <h4>Колличество: {task.length}</h4> : <></>}
     </div>
   );
 };

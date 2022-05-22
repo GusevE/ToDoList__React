@@ -4,7 +4,20 @@ import { ActionTypes, DELETE_TODO, SET_TODOS, ADD_TODO, SET_NEWTODO, TOGGLE_TODO
 
 let id = 0
 
-const addTodo = (todos: Todo[], text: string): Todo[]=> [...todos, {id: ++id,text, done: false, disabled: true}];
+
+let symbols, color: string;
+const colorGenerator = () => {
+  symbols = "0123456789ABCDEF";
+  color = "#";
+  for (let i = 0; i < 6; i++) {
+    color = color + symbols[Math.floor(Math.random() * 16)];
+  }
+  return color
+};
+
+console.log(colorGenerator())
+
+const addTodo = (todos: Todo[], text: string): Todo[]=> [...todos, {id: ++id,text, done: false, disabled: true, color: colorGenerator()}];
 
 const removeTodo = (todos: Todo[], id: number): Todo[] => todos.filter((todo) => todo.id !== id);
 
