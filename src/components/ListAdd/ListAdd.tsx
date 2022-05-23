@@ -1,18 +1,28 @@
-import { Button, TextField } from "@mui/material";
+import { Button, Checkbox, IconButton, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, setNewTodo } from "../../store/actions";
+import { addTodo, allTodo, setNewTodo } from "../../store/actions";
 import { Store } from "../../store/types";
 import styles from "../ListAdd/ListAdd.module.css";
 
 export const ListAdd: React.FC = () => {
   const newTodo = useSelector((state: Store) => state.newTodo);
   const task = useSelector((state: Store) => state.todos);
+
   const dispatch = useDispatch();
   return (
     <div>
       <h1 className={styles.linearWipe}>ToDoList!</h1>
       <div className={styles.block}>
         <TextField
+          InputProps={{
+            startAdornment: (
+              <>
+                <IconButton>
+                  <Checkbox onClick={() => dispatch(allTodo())}/>
+                </IconButton>
+              </>
+            ),
+          }}
           value={newTodo}
           id="outlined-basic"
           label="Введите задачу"

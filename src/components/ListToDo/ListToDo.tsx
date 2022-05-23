@@ -29,10 +29,12 @@ function ListToDo() {
           text: string;
           disabled: boolean;
           color: string;
+          done: boolean;
         }) => (
           <div key={todo.id} className={styles.block}>
             <IconButton>
               <Checkbox
+                checked={todo.done}
                 disabled={!todo.disabled}
                 onClick={() => dispatch(toggleTodo(todo.id))}
               />
