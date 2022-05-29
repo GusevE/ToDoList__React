@@ -6,9 +6,23 @@ import styles from "../ListAdd/ListAdd.module.css";
 
 export const ListAdd: React.FC = () => {
   const newTodo = useSelector((state: Store) => state.newTodo);
-  const task = useSelector((state: Store) => state.todos);
+  let task = useSelector((state: Store) => state.todos);
 
   const dispatch = useDispatch();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      task = task.map((elem) => {
+        return { ...elem, done: true };
+      });
+    } else {
+      task = task.map((elem) => {
+        return { ...elem, done: false };
+      });
+    }
+    console.log(task);
+  };
+
   return (
     <div>
       <h1 className={styles.linearWipe}>ToDoList!</h1>
@@ -18,7 +32,7 @@ export const ListAdd: React.FC = () => {
             startAdornment: (
               <>
                 <IconButton>
-                  <Checkbox onClick={() => dispatch(allTodo())}/>
+                  <Checkbox onChange={handleChange} disabled={!task.length} />
                 </IconButton>
               </>
             ),

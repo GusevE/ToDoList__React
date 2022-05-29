@@ -19,7 +19,7 @@ export type ActionTypes =
     |{ type: typeof TOGGLE_TODO; payload: number }
     |{ type: typeof EDIT_TODO; payload: { id: number; text: string}}
     |{ type: typeof DISABLED_TODO; payload: {id: number; disabled: boolean}}
-    |{ type: typeof ALL_TODO;}
+    |{ type: typeof ALL_TODO; }
     
   
  export const addTodo = (): ActionTypes => ({type: ADD_TODO})   
