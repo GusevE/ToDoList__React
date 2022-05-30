@@ -1,22 +1,11 @@
 import { Todo, Store } from './types';
 import { createStore } from 'redux';
 import { ActionTypes, DELETE_TODO, SET_TODOS, ADD_TODO, SET_NEWTODO, TOGGLE_TODO, EDIT_TODO, DISABLED_TODO, ALL_TODO } from './actions';
-import { Done } from '@mui/icons-material';
+import { colorGenerator } from '../components/utils/fun';
+
 
 let id = 0
 
-
-let symbols, color: string;
-const colorGenerator = () => {
-  symbols = "0123456789ABCDEF";
-  color = "#";
-  for (let i = 0; i < 6; i++) {
-    color = color + symbols[Math.floor(Math.random() * 16)];
-  }
-  return color
-};
-
-console.log(colorGenerator())
 
 const addTodo = (todos: Todo[], text: string): Todo[]=> [...todos, {id: ++id,text, done: false, disabled: true, color: colorGenerator()}];
 
