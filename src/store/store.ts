@@ -1,6 +1,6 @@
 import { Todo, Store } from './types';
 import { createStore } from 'redux';
-import { ActionTypes, DELETE_TODO, SET_TODOS, ADD_TODO, SET_NEWTODO, TOGGLE_TODO, EDIT_TODO, DISABLED_TODO, ALL_TODO } from './actions';
+import { ActionTypes, DELETE_TODO, ADD_TODO, SET_NEWTODO, TOGGLE_TODO, EDIT_TODO, DISABLED_TODO, ALL_TODO, ACTION_TODO } from './actions';
 import { colorGenerator } from '../components/utils/fun';
 
 
@@ -17,18 +17,21 @@ const editTodo = (todo: Todo[], id: number, text: string): Todo[] => todo.map((t
 
 const editDisabled = (todo: Todo[], id: number, disabled: boolean): Todo[]=> todo.map((todo)=> ({...todo, disabled: todo.id === id ? !todo.disabled : todo.disabled}))
 
-const allTodo = (todos: Todo[]) => todos.map((todo) => ({...todo, done: !todo.done }))
+const allTodo = (todos: Todo[], text: boolean):Todo[]  =>  text ? todos.map(( elem)=>{ return {...elem, done: true}}) : todos = todos.map(( elem)=>{ return {...elem, done: false}})
+
+const actionTodo = (todos: Todo[]):Todo[] =>  []
 
 function todoReducer(state: Store = { todos: [], newTodo: ""}, action: ActionTypes)
   {
-    switch (action.type) {case SET_TODOS: return { ...state,todos: action.payload,};
-        case SET_NEWTODO: return {...state,newTodo: action.payload,};
-        case DELETE_TODO: return {...state,todos: removeTodo(state.todos, action.payload),};
-        case ADD_TODO: return { ...state, newTodo: "", todos: addTodo(state.todos, state.newTodo),};
-        case TOGGLE_TODO: return { ...state, todos: toggleTodo(state.todos, action.payload),};
+    switch (action.type){
+        case SET_NEWTODO: return {...state,newTodo: action.payload};
+        case DELETE_TODO: return {...state,todos: removeTodo(state.todos, action.payload)};
+        case ADD_TODO: return { ...state, newTodo: "", todos: addTodo(state.todos, state.newTodo)};
+        case TOGGLE_TODO: return { ...state, todos: toggleTodo(state.todos, action.payload)};
         case EDIT_TODO: return { ...state, todos: editTodo(state.todos, action.payload.id, action.payload.text) }
         case DISABLED_TODO: return { ...state, todos: editDisabled(state.todos, action.payload.id, action.payload.disabled) }
-        case ALL_TODO: return {...state, todos: allTodo(state.todos) }
+        case ALL_TODO: return {...state, todos: allTodo (state.todos, action.payload)}
+        case ACTION_TODO: return {...state, todos: actionTodo (state.todos)}
         default:
       return state;
     }

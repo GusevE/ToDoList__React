@@ -11,16 +11,7 @@ export const ListAdd: React.FC = () => {
   const dispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.checked) {
-      task = task.map((elem) => {
-        return { ...elem, done: true };
-      });
-    } else {
-      task = task.map((elem) => {
-        return { ...elem, done: false };
-      });
-    }
-    console.log(task);
+    dispatch(allTodo(event.target.checked));
   };
 
   return (
@@ -53,7 +44,7 @@ export const ListAdd: React.FC = () => {
           Создать задачу
         </Button>
       </div>
-      {task.length ? <h4>Колличество: {task.length}</h4> : <></>}
+      {!!task.length && <h4>Колличество: {task.length}</h4>}
     </div>
   );
 };

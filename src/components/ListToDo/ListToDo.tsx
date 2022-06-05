@@ -13,13 +13,11 @@ import styles from "../ListToDo/ListToDo.module.css";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { ButtonComponent } from "../Button/ButtonComponent";
-import { green } from "@mui/material/colors";
 
 function ListToDo() {
   const todos = useSelector((state: Store) => state.todos);
 
   const dispatch = useDispatch();
-  console.log(todos);
 
   return (
     <>
