@@ -15,13 +15,23 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { ButtonComponent } from "../Button/ButtonComponent";
 
 function ListToDo() {
-  const todos = useSelector((state: Store) => state.todos);
+  const { todos, status } = useSelector((state: Store) => state);
+
+  console.log(todos)
+
+  const filterStatus = () => {
+    if (status === "all") {
+      return todos;
+    } else {
+      return [...todos].filter((elem) => elem.done === status);
+    }
+  };
 
   const dispatch = useDispatch();
 
   return (
     <>
-      {todos.map(
+      {filterStatus().map(
         (todo: {
           id: number;
           text: string;
